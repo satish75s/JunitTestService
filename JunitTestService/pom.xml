@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.junit</groupId>
+    <artifactId>JunitTestService</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>JunitTestService</name>
+    <description>CodeCoverageService</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+
+    <properties>
+        <java.version>17</java.version>
+
+        <!-- SonarQube Configuration -->
+        <sonar.login>admin</sonar.login>
+        <sonar.password>Hello@198082</sonar.password>
+        <sonar.projectKey>JUnitService</sonar.projectKey>
+        <sonar.projectName>JUnitService</sonar.projectName>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+    <!--   <sonar.exclusions>**/com/junit/JunitTestServiceApplication.java</sonar.exclusions>-->
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito dependency for unit testing -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- JaCoCo Plugin Configuration -->
+            <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.7</version>
+            <executions>
+                <!-- Prepare agent and collect coverage data -->
+                <execution>
+                    <id>prepare-agent</id> <!-- Unique ID for prepare-agent goal -->
+                    <goals>
+                        <goal>prepare-agent</goal> <!-- Collect coverage data -->
+                    </goals>
+                </execution>
+
+                <!-- Generate the coverage report -->
+                <execution>
+                    <id>generate-report</id> <!-- Unique ID for report generation goal -->
+                    <goals>
+                        <goal>report</goal> <!-- Generate the coverage report -->
+                    </goals>
+                    <configuration>
+                        <!-- Generate XML report for SonarQube -->
+                        <outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+                        <reportFormats>
+                            <reportFormat>xml</reportFormat> <!-- Specify XML format -->
+                        </reportFormats>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+            <!-- SonarQube Maven Plugin -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.0.2155</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
